@@ -1,0 +1,78 @@
+
+import sys
+from pathlib import Path
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, \
+    QWidget, QStatusBar, QAction, QMessageBox
+from PyQt5.QtGui import QIcon
+
+def absPatch(nombre):
+    return str(  Path(__file__).parent.absolute() / nombre )
+
+class Ventana(QMainWindow):
+    def __init__(self) -> None:
+        super().__init__()
+        self.resize(800, 600)
+        self.setStatusBar(QStatusBar(self))
+        icono = QIcon(absPatch('Escudo.jpeg'))
+        self.setWindowIcon(icono)
+        
+        self.construir_menu()
+        
+    def construir_menu(self):
+        menu = self.menuBar()
+        menuArchivo = menu.addMenu("&Configuracion")
+        menuArchivo.addAction("A&brir")
+        submenu = menuArchivo.addMenu("Sub&menu")
+        submenu.addAction("Opcion &1")
+        submenu.addAction("Opcion &2")
+        submenu.addSeparator()
+        
+        actionMensaje = QAction("Men&saje", self)
+        actionMensaje.setIcon(QIcon(absPatch('Escudo.jpeg')))
+        actionMensaje.setShortcut('ctrl-m')
+        actionMensaje.triggered.connect(self.mostrar_mensaje)
+        menuArchivo.addAction(actionMensaje)
+        menuArchivo.setStatusTip("Un comando informativo")
+        
+        menuArchivo.addAction(QIcon(absPatch('Escudo.jpeg')), "Salir", self.close, "ctrl+d")
+        
+        menuEditar = menu.addMenu("&Inicio")
+    def mostrar_mensaje(self):   
+        print("mostrando el mensaje") 
+        #QMessageBox.information(self, "informacion", "texto informativo")
+        #QMessageBox.warning(self, "informacion", "texto informativo")
+        #QMessageBox.critical(self, "informacion", "texto informativo")
+        #QMessageBox.question(self, "informacion", "texto informativo")
+        QMessageBox.about(self, "Historico", "Alarma")
+        
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = Ventana()
+    window.show();
+    sys.exit(app.exec())
+    
+import sys
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, \
+    QWidget, QDialog, QHBoxLayout, QDialogButtonBox
+
+       
+class Dialogo(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Soy un dialog")
+        self.resize(460,300)
+        layout = QHBoxLayout()
+        
+        botones = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
+        layout.addWidget(botones)
+        
+        botones.accepted.connect(self.accept)
+        botones.rejected.connect(self.reject)
+        botones.button(QDialogButtonBox.Ok).setText("Aceptar")
+        botones.button(QDialogButtonBox.Cancel).setText("Cancelar")
+        
+        self.setLayout(layout)
+       

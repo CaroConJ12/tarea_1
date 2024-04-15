@@ -1,0 +1,21 @@
+import tkinter as tk
+
+def mostrar_ventana():
+    # Crear la ventana
+    ventana = tk.Toplevel()
+    ventana.title("Cortina de Seguridad")
+    
+    # Crear un label dentro de la ventana
+    label = tk.Label(ventana, text="GIRE PARA DESACTIVAR.")
+    label.pack(padx=20, pady=20)
+
+# Crear la ventana principal
+root = tk.Tk()
+root.title("Cortina de Seguridad")
+
+# Crear un botón en la ventana principal
+boton = tk.Button(root, text="PARO DE EMERGENCIA", command=mostrar_ventana)
+boton.pack(padx=50, pady=50)
+
+# Iniciar el bucle principal
+root.mainloop()
