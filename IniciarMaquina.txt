@@ -1,0 +1,2 @@
+Iniciando Selladora
+Deteniendo Selladora

@@ -1,0 +1,2 @@
+Ambos elementos se han Detenido 
+Ambos elementos se están ejecutando 
